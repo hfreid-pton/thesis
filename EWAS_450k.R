@@ -1,4 +1,4 @@
-##Many portions/much of this code is based on and adapted from code written by Ben Jacobson '19
+##Many portions/most of this code is based on and adapted from code written by Ben Jacobson '19
 # for his senior thesis
 # See citation for his thesis in my written thesis References section
 
