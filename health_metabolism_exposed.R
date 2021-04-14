@@ -60,6 +60,10 @@ p_bmi <- c()
 count_bmi_exp <- c()
 count_bmi_c <- c()
 
+p_bmiz <- c()
+count_bmiz_exp <- c()
+count_bmi_c <- c()
+
 
 # reading in metabolism score data and creating binary scores
 score <- read.csv("/home/HPA/HPA_group_datasets/ADME/Hannah/9var_scores_3-14.csv")
@@ -204,6 +208,20 @@ bmi_t2 <- t.test(num_wells_10_bmi_expo$ck6cbmi, num_wells_10_bmi_c$ck6cbmi, var.
 p_bmi <- c(p_bmi, bmi_t2$p.value)
 count_bmi_exp <- c(count_bmi_exp, mean(num_wells_10_bmi_expo$ck6cbmi))
 count_bmi_c <- c(count_bmi_c, mean(num_wells_10_bmi_c$ck6cbmi))
+
+
+num_wells_10$ch5bmiz <- ch5bmiz
+num_wells_10$ch6bmiz <- ch6bmiz
+num_wells_10_bmiz <- num_wells_10[is.na(num_wells_10$ch5bmiz) == F,]
+num_wells_10_bmiz <- num_wells_10_bmiz[is.na(num_wells_10_bmiz$ch6bmiz) ==F,]
+num_wells_10_bmiz$diff <- num_wells_10_bmiz$ch6bmiz - num_wells_10_bmiz$ch5bmiz
+num_wells_10_bmiz_expo <- num_wells_10_bmiz %>% filter(exposure == 1)
+num_wells_10_bmiz_c <- num_wells_10_bmiz %>% filter(exposure == 0)
+bmiz_t2 <- t.test(num_wells_10_bmiz_expo$diff, num_wells_10_bmiz_c$diff, var.equal=TRUE)
+
+p_bmiz <- c(p_bmiz, bmiz_t2$p.value)
+count_bmiz_exp <- c(count_bmiz_exp, mean(num_wells_10_bmiz_expo$ck6cbmi))
+count_bmiz_c <- c(count_bmiz_c, mean(num_wells_10_bmiz_c$ck6cbmi))
 
 
 num_wells_10$k6d8 <- k6d8
