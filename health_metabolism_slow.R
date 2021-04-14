@@ -57,6 +57,10 @@ p_bmi <- c()
 count_bmi_exp <- c()
 count_bmi_c <- c()
 
+p_bmiz <- c()
+count_bmiz_exp <- c()
+count_bmiz_c <- c()
+
 
 # doing 100 iterations of nearest neighbor propensity score matching
 
@@ -189,7 +193,20 @@ bmi_t2 <- t.test(num_wells_10_bmi_expo$ck6cbmi, num_wells_10_bmi_c$ck6cbmi, var.
 p_bmi <- c(p_bmi, bmi_t2$p.value)
 count_bmi_exp <- c(count_bmi_exp, mean(num_wells_10_bmi_expo$ck6cbmi))
 count_bmi_c <- c(count_bmi_c, mean(num_wells_10_bmi_c$ck6cbmi))
+  
+  
+num_wells_10$ch5bmiz <- ch5bmiz
+num_wells_10$ch6bmiz <- ch6bmiz
+num_wells_10_bmiz <- num_wells_10[is.na(num_wells_10$ch5bmiz) == F,]
+num_wells_10_bmiz <- num_wells_10_bmiz[is.na(num_wells_10_bmiz$ch6bmiz) ==F,]
+num_wells_10_bmiz$diff <- num_wells_10_bmiz$ch6bmiz - num_wells_10_bmiz$ch5bmiz
+num_wells_10_bmiz_expo <- num_wells_10_bmiz %>% filter(exposure == 1)
+num_wells_10_bmiz_c <- num_wells_10_bmiz %>% filter(exposure == 0)
+bmiz_t2 <- t.test(num_wells_10_bmiz_expo$diff, num_wells_10_bmiz_c$diff, var.equal=TRUE)
 
+p_bmiz <- c(p_bmiz, bmiz_t2$p.value)
+count_bmiz_exp <- c(count_bmiz_exp, mean(num_wells_10_bmiz_expo$ck6cbmi))
+count_bmiz_c <- c(count_bmiz_c, mean(num_wells_10_bmiz_c$ck6cbmi))
 
 num_wells_10$k6d8 <- k6d8
 #split k6d8 into those with earlier dev (k6d8_earlier) and those with later dev (k6d8_later)
@@ -421,7 +438,7 @@ count_asthma_exp <- c(count_asthma_exp, p6b2_exp)
 
 }
 
-df_loop <- data.frame(p_k6d4, count_k6d4_exp, count_k6d4_c, p_k6d8_earlier, count_k6d8_earlier_exp, count_k6d8_earlier_c, p_k6d8_later, count_k6d8_later_exp, count_k6d8_later_c, p_p6b5, count_p6b5_exp, count_p6b5_c, p_p6b14, count_p6b14_exp, count_p6b14_c, p_p6b8, count_p6b8_exp, count_p6b8_c, p_p6b19, count_p6b19_exp, count_p6b19_c, p_p6b16, count_p6b16_exp, count_p6b16_c, p_p6b23, count_p6b23_exp, count_p6b23_c, p_asthma, count_asthma_exp, count_asthma_c, p_bmi, count_bmi_exp, count_bmi_c)
+df_loop <- data.frame(p_k6d4, count_k6d4_exp, p_bmiz, count_bmiz_exp, count_bmiz_c, count_k6d4_c, p_k6d8_earlier, count_k6d8_earlier_exp, count_k6d8_earlier_c, p_k6d8_later, count_k6d8_later_exp, count_k6d8_later_c, p_p6b5, count_p6b5_exp, count_p6b5_c, p_p6b14, count_p6b14_exp, count_p6b14_c, p_p6b8, count_p6b8_exp, count_p6b8_c, p_p6b19, count_p6b19_exp, count_p6b19_c, p_p6b16, count_p6b16_exp, count_p6b16_c, p_p6b23, count_p6b23_exp, count_p6b23_c, p_asthma, count_asthma_exp, count_asthma_c, p_bmi, count_bmi_exp, count_bmi_c)
 
 write.csv(df_loop, "/home/HPA/Hannah/health_metabolism_slow_alc_1.csv")
 
