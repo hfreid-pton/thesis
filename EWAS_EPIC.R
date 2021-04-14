@@ -1,4 +1,4 @@
-##Many portions/much of this code is based on and adapted from code written by Ben Jacobson '19
+##Many portions/most of this code is based on and adapted from code written by Ben Jacobson '19
 # for his senior thesis (see citation for his thesis in my written thesis references)
 
 # finding sites (on EPIC array) that are differentially methylated from age 9 to age 15
